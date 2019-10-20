@@ -1,20 +1,17 @@
-let start = document.getElementById("start");
-
-let stop = document.getElementById("stop");
-
-let score = document.getElementById("score");
-
-start.addEventListener("click", animate);
-let count = 0;
-let count1 = 0;
-
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
+let start = document.getElementById("start");
+let stop = document.getElementById("stop");
+let score = document.getElementById("score");
+
+let count = 0;
 let stopgame;
 
 const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 const getRandomColor = () =>
   `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+
+start.addEventListener("click", animate);
 
 stop.addEventListener("click", function() {
   cancelAnimationFrame(stopgame);
@@ -27,7 +24,7 @@ let rectangles = [];
 function animate() {
   class Rectangle {
     constructor() {
-      (this.x = Math.random() * 610), (this.y = 0);
+      (this.x = Math.random() * 560), (this.y = 0);
       this.color = getRandomColor();
       (this.dx = 0), (this.dy = Math.random() * 2);
     }
@@ -52,9 +49,7 @@ function animate() {
 
   let timer = Math.floor(Math.random() * 1500);
   setInterval(() => {
-    // let randomNumber = getRandom();
     rectangles.push(new Rectangle());
-    // count++;
   }, timer);
 
   function update() {
@@ -68,21 +63,28 @@ function animate() {
   //RUN
   update();
 
-  // var isCursorInSquares = function(x, y, squares) {
-  //   return (
-  //     x > squares.x && x < squares.x + 80 && y > squares.y && y < squares.y + 80
-  //   );
-  // };
+  let isClick = function(x, y, rectangle) {
+    return (
+      x > rectangle.x &&
+      x < rectangle.x + 80 &&
+      y > rectangle.y &&
+      y < rectangle.y + 80
+    );
+  };
 
-  // canvas.onclick = function(e) {
-  //   var x = e.pageX - canvas.offsetLeft;
-  //   y = e.pageY - canvas.offsetTop;
+  canvas.addEventListener(
+    "click",
+    function(event) {
+      let x = event.pageX - canvas.offsetLeft;
+      let y = event.pageY - canvas.offsetTop;
 
-  //   for (var i = rectangles.length - 1; i >= 0; --i) {
-  //     if (isCursorInSquares(x, y, rectangles[i])) {
-  //       delete rectangles.splice(i, 1);
-  //       score.innerHTML = Number(score.innerHTML) + 1;
-  //     }
-  //   }
-  // };
+      for (var i = rectangles.length - 1; i >= 0; i--) {
+        if (isClick(x, y, rectangles[i])) {
+          rectangles.splice(i, 1);
+          score.innerHTML = Number(score.innerHTML) + 1;
+        }
+      }
+    },
+    false
+  );
 }
