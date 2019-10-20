@@ -4,7 +4,6 @@ let start = document.getElementById("start");
 let stop = document.getElementById("stop");
 let score = document.getElementById("score");
 
-let count = 0;
 let stopgame;
 
 const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -43,10 +42,6 @@ function animate() {
     }
   }
 
-  let rectangles = [];
-
-  //create new ball and push it to array
-
   let timer = Math.floor(Math.random() * 1500);
   setInterval(() => {
     rectangles.push(new Rectangle());
@@ -55,12 +50,12 @@ function animate() {
   function update() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0, rect; (rect = rectangles[i]); i++) {
-      rect.draw(); // this will draw current ball
-      rect.update(); // this will update its position
+      rect.draw();
+      rect.update();
     }
     stopgame = requestAnimationFrame(update);
   }
-  //RUN
+
   update();
 
   let isClick = function(x, y, rectangle) {
