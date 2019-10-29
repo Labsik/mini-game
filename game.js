@@ -25,7 +25,7 @@ function animate() {
     constructor() {
       (this.x = Math.random() * 560), (this.y = 0);
       this.color = getRandomColor();
-      (this.dx = 0), (this.dy = Math.random() * 2);
+      (this.dx = 0), (this.dy = Math.random() * 10);
     }
 
     draw() {
@@ -37,12 +37,11 @@ function animate() {
     }
 
     update() {
-      this.x += this.dx;
       this.y += this.dy;
     }
   }
 
-  let timer = Math.floor(Math.random() * 1500);
+  let timer = Math.floor(Math.random() * 3000);
   setInterval(() => {
     rectangles.push(new Rectangle());
   }, timer);
